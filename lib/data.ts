@@ -202,7 +202,7 @@ export type Project = {
   category: string
   location: string
   year: number
-  description: string
+  description?: string
   shortDesc?: string
   paragraph1?: string
   paragraph2?: string
