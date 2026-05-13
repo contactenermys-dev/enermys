@@ -62,6 +62,10 @@ export const metadata: Metadata = {
     title: 'ENERMYS — Démantèlement & Transport Industriel',
     description: "Spécialiste Oil & Gas, intervention nationale et internationale. Devis gratuit.",
   },
+  icons: {
+    icon: '/logo-flame.png',
+    apple: '/logo-flame.png',
+  },
   robots: {
     index: true,
     follow: true,
