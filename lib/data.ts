@@ -197,11 +197,17 @@ export const stats: Stat[] = [
 
 export type Project = {
   id: number
+  index?: string
   title: string
   category: string
   location: string
   year: number
   description: string
+  shortDesc?: string
+  paragraph1?: string
+  paragraph2?: string
+  tags?: string[]
+  cards?: Array<{ subtitle: string; gradient: string }>
 }
 
 export const projects: Project[] = [
