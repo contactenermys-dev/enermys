@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Phone, Mail, MapPin, Clock, Linkedin, Twitter } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock } from 'lucide-react'
 
 const serviceLinks = [
   { label: 'Démantèlement de stations GNC', href: '/services/demantelement-gnc' },
@@ -37,26 +37,9 @@ export function Footer() {
             <Link href="/" className="inline-flex mb-5" aria-label="ENERMYS — Accueil">
               <FooterLogo />
             </Link>
-            <p className="text-white/55 text-sm leading-relaxed mb-6 font-body">
+            <p className="text-white/55 text-sm leading-relaxed font-body">
               Spécialistes du démantèlement, du terrassement et du transport industriel. Votre partenaire de confiance pour tous vos projets Oil & Gas en France et à l&apos;international.
             </p>
-            <div className="flex items-center gap-2">
-              {[
-                { href: 'https://linkedin.com', label: 'LinkedIn', Icon: Linkedin },
-                { href: 'https://twitter.com', label: 'Twitter', Icon: Twitter },
-              ].map(({ href, label, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-white/8 hover:bg-brand-orange flex items-center justify-center transition-colors duration-200"
-                  aria-label={`${label} ENERMYS`}
-                >
-                  <Icon className="w-4 h-4" aria-hidden="true" />
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Services */}
@@ -161,7 +144,7 @@ export function Footer() {
               Mentions légales
             </Link>
             <span aria-hidden="true">·</span>
-            <Link href="/politique-confidentialite" className="hover:text-white/60 transition-colors duration-150">
+            <Link href="/politique-de-confidentialite" className="hover:text-white/60 transition-colors duration-150">
               Politique de confidentialité
             </Link>
           </div>
