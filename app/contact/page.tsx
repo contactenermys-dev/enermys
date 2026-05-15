@@ -77,8 +77,28 @@ function InlineForm() {
     e.preventDefault()
     if (!validate()) return
     setState('submitting')
-    await new Promise((r) => setTimeout(r, 1200))
-    setState('success')
+
+    try {
+      const res = await fetch('https://formspree.io/f/mkoydzbk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          Nom: form.name,
+          Email: form.email,
+          Téléphone: form.phone,
+          'Site / Localisation': form.localisation,
+          Message: form.message,
+        }),
+      })
+
+      if (res.ok) {
+        setState('success')
+      } else {
+        setState('error')
+      }
+    } catch {
+      setState('error')
+    }
   }
 
   const inputCls = (err?: string) =>
@@ -96,6 +116,21 @@ function InlineForm() {
           className="text-black/50 font-body text-xs uppercase tracking-widest hover:text-black transition-colors duration-200"
         >
           Envoyer un autre message →
+        </button>
+      </div>
+    )
+  }
+
+  if (state === 'error') {
+    return (
+      <div className="flex flex-col items-start justify-center py-10">
+        <p className="font-heading font-bold text-black text-lg mb-2">Une erreur est survenue</p>
+        <p className="font-body text-black/45 text-sm mb-6">Réessayez ou contactez-nous directement par téléphone.</p>
+        <button
+          onClick={() => setState('idle')}
+          className="text-black/50 font-body text-xs uppercase tracking-widest hover:text-black transition-colors duration-200"
+        >
+          ← Réessayer
         </button>
       </div>
     )
