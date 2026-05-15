@@ -79,8 +79,33 @@ export function DevisForm() {
     e.preventDefault()
     if (!validateStep3()) return
     setState('submitting')
-    await new Promise((r) => setTimeout(r, 1400))
-    setState('success')
+
+    try {
+      const res = await fetch('https://formspree.io/f/mkoydzbk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          Nom: step3.name,
+          Société: step3.societe,
+          Email: step3.email,
+          Téléphone: step3.phone,
+          Service: step1.service,
+          Description: step1.description,
+          'Site / Localisation': step2.localisation,
+          'Surface / Quantité': step2.surface,
+          Budget: step2.budget,
+          Délai: step2.timeframe,
+        }),
+      })
+
+      if (res.ok) {
+        setState('success')
+      } else {
+        setState('error')
+      }
+    } catch {
+      setState('error')
+    }
   }
 
   const fieldClass = (name: string) =>
@@ -101,6 +126,21 @@ export function DevisForm() {
         <p className="mt-4 text-sm text-slate-400 font-body">
           Un email de confirmation a été envoyé à <span className="text-brand-navy">{step3.email}</span>
         </p>
+      </div>
+    )
+  }
+
+  if (state === 'error') {
+    return (
+      <div className="flex flex-col items-center justify-center text-center py-16 px-8 bg-white rounded-2xl border border-red-200">
+        <h3 className="font-heading font-bold text-red-500 text-2xl mb-3">Une erreur est survenue</h3>
+        <p className="font-body text-slate-500 max-w-sm leading-relaxed mb-6">
+          Veuillez réessayer ou nous contacter directement par téléphone.
+        </p>
+        <button onClick={() => setState('idle')}
+          className="text-black/50 font-body text-xs uppercase tracking-widest hover:text-black transition-colors duration-200">
+          ← Réessayer
+        </button>
       </div>
     )
   }
