@@ -123,9 +123,6 @@ export function DevisForm() {
         <p className="font-body text-slate-500 max-w-sm leading-relaxed">
           Merci <strong>{step3.name}</strong>. Nous avons bien reçu votre demande et vous contacterons dans les <strong>24h</strong> pour analyser votre projet.
         </p>
-        <p className="mt-4 text-sm text-slate-400 font-body">
-          Un email de confirmation a été envoyé à <span className="text-brand-navy">{step3.email}</span>
-        </p>
       </div>
     )
   }
