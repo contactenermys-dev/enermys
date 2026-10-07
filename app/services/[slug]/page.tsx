@@ -10,7 +10,7 @@ import { SectionTitle } from '@/components/ui/SectionTitle'
 import { CTABanner } from '@/components/sections/CTABanner'
 import { Button } from '@/components/ui/Button'
 
-type Props = { params: { slug: string } }
+type Props = { params: Promise<{ slug: string }> }
 
 const iconMap: Record<string, React.ElementType> = {
   Settings, Mountain, Truck, RefreshCw, Users,
@@ -20,7 +20,8 @@ export async function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }))
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params
   const service = services.find((s) => s.slug === params.slug)
   if (!service) return {}
   return {
@@ -54,7 +55,8 @@ const genericFaq = [
   { q: "Combien de temps faut-il pour obtenir un devis ?", a: "Nous répondons à toutes les demandes sous 24h. Le devis détaillé est remis dans les 5 jours ouvrés suivant notre analyse du site, sans frais ni engagement." },
 ]
 
-export default function ServicePage({ params }: Props) {
+export default async function ServicePage(props: Props) {
+  const params = await props.params
   const service = services.find((s) => s.slug === params.slug)
   if (!service) notFound()
 
